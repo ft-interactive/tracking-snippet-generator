@@ -31,6 +31,13 @@
         display: block;
         width: 100%;
       }
+
+      .snippet-cont {
+        visibility: hidden;
+      }
+      .snippet-cont--visible {
+        visibility: visible;
+      }
     </style>
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
@@ -49,12 +56,13 @@
       <p>Please enter one or both of the following:</p>
       <div class="row"><label><span>Link file UUID</span><input autofocus value="{{uuid}}"></label></div>
       <div class="row"><label><span>Microsite name</span><input value="{{microsite}}"></label></div>
-
-      <br>
-      <div>
+      
+      <div class="snippet-cont{{#if snippet}} snippet-cont--visible{{/if}}">
+        <br>
         <p>Insert this snippet as the <strong>first</strong> thing inside the <code>&lt;body&gt;</code> element:</p>
         <textarea class="snippet" rows="30" value="{{ snippet }}"></textarea>
       </div>
+      
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ractive/0.7.3/ractive.js"></script>
