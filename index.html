@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>FT IG tracking snippet generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+    <style>
+      body {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
+
+      .row {
+        margin-bottom: 1em;
+      }
+      .row > label > span {
+        display: inline-block;
+        width: 140px;
+        margin-right: 20px;
+        text-align: right;
+      }
+
+      .snippet {
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      }
+    </style>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+  </head>
+  <body>
+    <h2>Tracking snippet generator</h2>
+    <h4>For FT IG projects</h4>
+
+    <div id="container"></div>
+
+    <script id="template" type="text/ractive">
+      <div class="row"><label><span>Link file UUID</span><input autofocus value="{{uuid}}"></label></div>
+      <div class="row"><label><span>Microsite name</span><input value="{{microsite}}"></label></div>
+      <div class="row"><textarea class="snippet" rows="20" cols="60" value="{{ snippet }}"></textarea></div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ractive/0.7.3/ractive.js"></script>
+
+    <script>
+      'use strict';
+
+      const ractive = new Ractive({
+        el: '#container',
+        template: '#template',
+      });
+
+      function updateSnippet() {
+        const uuid = ractive.get('uuid');
+        const microsite = ractive.get('microsite');
+
+        const oTrackingData = {
+          content: {
+            asset_type: 'interactive',
+            // uuid: '__UUID__',
+            // microsite_name: '__MICROSITE__'
+          }
+        };
+
+        const spoorData = {
+            action: "view",
+            category: "page",
+            context: {
+                content: {
+                    asset_type: "interactive",
+                    // uuid: "__UUID__"
+                },
+                product: "IG",
+                // microsite_name: "__MICROSITE__"
+            },
+            system: {
+                is_live: !0,
+                apiKey: "qUb9maKfKbtpRsdp0p2J7uWxRPGJEP",
+                source: "o-tracking-ns",
+                version: "1.0.0"
+            }
+        };
+
+        if (uuid) {
+          oTrackingData.uuid = uuid;
+          spoorData.context.content.uuid = uuid;
+        }
+
+        if (microsite) {
+          oTrackingData.microsite_name = microsite;
+          spoorData.context.microsite_name = microsite;
+        }
+
+        ractive.set({ snippet: `<script>(function(){function init(){var oTracking=Origami['o-tracking'];oTracking.init({server:'https://spoor-api.ft.com/px.gif',system:{is_live:true},context:{product:'IG'}});oTracking.link.init();oTracking.page(${ JSON.stringify(oTrackingData) });}var o=document.createElement('script');o.async=o.defer=true;o.src='https://build.origami.ft.com/v2/bundles/js?modules=o-tracking';var s=document.getElementsByTagName('script')[0];if(o.hasOwnProperty('onreadystatechange')){o.onreadystatechange=function(){if(o.readyState==='loaded'){init();}};}else{o.onload=init;}s.parentNode.insertBefore(o,s);}());<\/script><noscript data-o-component="o-tracking"><img src="https://spoor-api.ft.com/px.gif?data=${ encodeURIComponent(JSON.stringify(spoorData)) }" height="1" width="1" /></noscript>` });
+      }
+
+      updateSnippet();
+
+      ractive.observe( 'uuid microsite', updateSnippet);
+    </script>
+  </body>
+</html>
