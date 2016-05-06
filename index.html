@@ -11,7 +11,8 @@
       body {
         max-width: 600px;
         margin: 0 auto;
-        padding: 0 10px;
+        padding: 30px 10px;
+        position: relative;
       }
 
       .row {
@@ -27,14 +28,17 @@
 
       .snippet {
         font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        display: block;
+        width: 100%;
       }
     </style>
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
   </head>
   <body>
-    <h2>Tracking snippet generator</h2>
-    <h4>For FT IG projects</h4>
+    <h1>Tracking snippet generator</h1>
+    <h2>For FT IG projects</h2>
+    <br>
 
     <div id="container"></div>
 
@@ -42,11 +46,14 @@
     <small><a href="https://github.com/ft-interactive/tracking-snippet-generator">Source code</a></small>
 
     <script id="template" type="text/ractive">
+      <p>Please enter one or both of the following:</p>
       <div class="row"><label><span>Link file UUID</span><input autofocus value="{{uuid}}"></label></div>
       <div class="row"><label><span>Microsite name</span><input value="{{microsite}}"></label></div>
-      <div class="row">
-        <p>Insert this snippet as the first thing inside the <code>&lt;body&gt;</code> element:</p>
-        <textarea class="snippet" rows="20" cols="60" value="{{ snippet }}"></textarea>
+
+      <br>
+      <div>
+        <p>Insert this snippet as the <strong>first</strong> thing inside the <code>&lt;body&gt;</code> element:</p>
+        <textarea class="snippet" rows="30" value="{{ snippet }}"></textarea>
       </div>
     </script>
 
