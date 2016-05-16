@@ -130,7 +130,7 @@
           return;
         }
 
-        ractive.set({ snippet: `<script>(function(){function init(){var oTracking=Origami['o-tracking'];oTracking.init({server:'https://spoor-api.ft.com/px.gif',system:{is_live:true},context:{product:'IG'}});oTracking.link.init();oTracking.page(${ JSON.stringify(oTrackingData) });}var o=document.createElement('script');o.async=o.defer=true;o.src='https://build.origami.ft.com/v2/bundles/js?modules=o-tracking';var s=document.getElementsByTagName('script')[0];if(o.hasOwnProperty('onreadystatechange')){o.onreadystatechange=function(){if(o.readyState==='loaded'){init();}};}else{o.onload=init;}s.parentNode.insertBefore(o,s);}());<\/script><noscript data-o-component="o-tracking"><img src="https://spoor-api.ft.com/px.gif?data=${ encodeURIComponent(JSON.stringify(spoorData)) }" height="1" width="1" /></noscript>` });
+        ractive.set({ snippet: `<script>(function(){function init(){var oTracking=Origami['o-tracking'];oTracking.init({server:'https://spoor-api.ft.com/px.gif',system:{is_live:true},context:{product:'IG'}});oTracking.link.init();oTracking.page(${ JSON.stringify(oTrackingData) });}var o=document.createElement('script');o.async=o.defer=true;o.src='https://origami-build.ft.com/v2/bundles/js?modules=o-tracking';var s=document.getElementsByTagName('script')[0];if(o.hasOwnProperty('onreadystatechange')){o.onreadystatechange=function(){if(o.readyState==='loaded'){init();}};}else{o.onload=init;}s.parentNode.insertBefore(o,s);}());<\/script><noscript data-o-component="o-tracking"><img src="https://spoor-api.ft.com/px.gif?data=${ encodeURIComponent(JSON.stringify(spoorData)) }" height="1" width="1" /></noscript>` });
       }
 
       updateSnippet();
